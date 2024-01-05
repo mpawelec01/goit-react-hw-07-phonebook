@@ -1,17 +1,15 @@
 import ContactListItem from './ContactListItem';
 import { useSelector } from 'react-redux';
-import { getFilter, getContacts } from '../../redux/selectors';
+import {
+  selectError,
+  selectIsLoading,
+  selectVisibleContacts,
+} from '../../redux/selectors';
 
 const ContactList = () => {
-  const filter = useSelector(getFilter);
-  const contacts = useSelector(getContacts);
-
-  const filteredContacts =
-    filter !== ''
-      ? contacts.filter(contact =>
-          contact.name.toLowerCase().includes(filter.toLowerCase())
-        )
-      : contacts;
+  const filteredContacts = useSelector(selectVisibleContacts);
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectIsLoading);
 
   return (
     <ul>
@@ -19,10 +17,11 @@ const ContactList = () => {
         <ContactListItem
           key={item.id}
           name={item.name}
-          number={item.number}
+          number={item.phone}
           id={item.id}
         />
       ))}
+      {isLoading && !error && <p>Updating...</p>}
     </ul>
   );
 };

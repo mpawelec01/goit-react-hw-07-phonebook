@@ -1,4 +1,4 @@
-import { deleteContact } from '../../redux/contactsSlice';
+import { deleteContact } from '../../redux/operations';
 import { useDispatch } from 'react-redux';
 
 const ContactListItem = ({ id, name, number }) => {
